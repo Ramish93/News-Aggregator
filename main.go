@@ -1,13 +1,7 @@
 package main
 
-import "pluralsight/go-person/organization"
-
-
+import "fmt"
 
 func main() {
-	p:= organization.NewPerson(
-		firstName: "ramish", lastName: "hassae"
-	)
-	println(p.ID())
-	println(p.FullName())
+	fmt.Println("hello go")
 }
