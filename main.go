@@ -12,11 +12,13 @@ func index_handler(w http.ResponseWriter, r *http.Request){
 }
 
 type SitemapIndex struct {
-	Locations []Location `xml:"sitemap"`
+	Locations []string `xml:"sitemap>loc"`
 }
 
-type Location struct {
-	Loc string `xml:"loc"`
+type News struct {
+	Titles []string `xml:"url>news>title"`
+	Keywords []string `xml:"url>news>Keywords"`
+	Locations []string `xml:"url>loc"`
 }
 
 
@@ -28,8 +30,11 @@ func main() {
 
 	var s SitemapIndex
 	xml.Unmarshal(bytes, &s)
+	// fmt.Println(s.Locations)
 
-	fmt.Println(s.Locations)
+	for _, Location := range s.Locations{
+		fmt.Printf("\n %s", Location)
+	}
 
 	// http.HandleFunc("/", index_handler)
 	// fmt.Println("server going live on port 3000")
