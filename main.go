@@ -14,6 +14,7 @@ var wg sync.WaitGroup
 type NewsMap struct {
     Keyword string
     Location string
+	
 }
 
 type NewsAggPage struct {
