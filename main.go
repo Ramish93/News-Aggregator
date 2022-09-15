@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
+
+	"html/template"
 	"io/ioutil"
 	"net/http"
 )
@@ -10,6 +12,7 @@ import (
 func index_handler(w http.ResponseWriter, r *http.Request){
 	fmt.Fprintf(w, "go is neat")
 }
+
 
 type SitemapIndex struct {
 	Locations []string `xml:"sitemap>loc"`
@@ -25,9 +28,12 @@ type NewsMap struct {
 	Keyword string
 	Location string
 }
+type NewsAggPage struct {
+	Title string
+	News map[string]NewsMap
+}
 
-
-func main() {
+func newsAggHandler(w http.ResponseWriter, r *http.Request){
 	var s SitemapIndex
 	var n News
 	news_map := make(map[string] NewsMap)
@@ -52,8 +58,13 @@ func main() {
 		}
 	}
 
+	p:= NewsAggPage{Title: "abc", News: news_map}
+	t, _ := template.ParseFiles("template.html")
+
+	fmt.Println(t.Execute(w, p))
 }
 
-// http.HandleFunc("/", index_handler)
-// fmt.Println("server going live on port 3000")
-// http.ListenAndServe(":3000", nil)
+func main() {
+
+}
+
