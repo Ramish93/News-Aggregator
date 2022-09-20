@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+
 	"sync"
 )
 
@@ -14,7 +15,7 @@ var wg sync.WaitGroup
 type NewsMap struct {
     Keyword string
     Location string
-	
+
 }
 
 type NewsAggPage struct {
